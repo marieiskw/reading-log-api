@@ -11,4 +11,13 @@ public class BookService {
         return List.of(new Book(1L, "Effective Java", "Joshua Bloch"),
                 new Book(2L, "aaa Code", "Robert C. Martin"));
     }
+
+    public Book getBookId(Long id) {
+        for(Book book : getBooks()) {
+            if (book.getId().equals(id)) {
+                return book;
+            }
+        }
+        return null;
+    }
 }
