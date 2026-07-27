@@ -3,6 +3,7 @@ import com.example.reading_log_api.entity.Book;
 
 import com.example.reading_log_api.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public Book createBook(@RequestBody Book book) {
+    public Book createBook(@Valid @RequestBody Book book) {
         return bookService.createBook(book);
     }
 
