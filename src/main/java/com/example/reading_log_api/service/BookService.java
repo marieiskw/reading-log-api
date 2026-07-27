@@ -2,6 +2,7 @@ package com.example.reading_log_api.service;
 
 import com.example.reading_log_api.entity.Book;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;

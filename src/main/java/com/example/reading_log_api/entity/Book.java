@@ -1,9 +1,13 @@
 package com.example.reading_log_api.entity;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class Book {
 
     private Long id;
+    @NotBlank
     private String title;
+    @NotBlank
     private String author;
 
     public Book() {
