@@ -1,5 +1,6 @@
 package com.example.reading_log_api.service;
 
+import com.example.reading_log_api.dto.CreateBookRequest;
 import com.example.reading_log_api.entity.Book;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ public class BookService {
     }
 
     public Book getBookById(Long id) {
-        for(Book book : getBooks()) {
+        for(Book book : booksList) {
             if (book.getId().equals(id)) {
                 return book;
             }
@@ -28,9 +29,9 @@ public class BookService {
         return null;
     }
 
-    public Book createBook(Book book) {
+    public Book createBook(CreateBookRequest request) {
         Long nextId = booksList.size() + 1L;
-        Book newBook = new Book(nextId, book.getTitle(), book.getAuthor());
+        Book newBook = new Book(nextId, request.getTitle(), request.getAuthor());
         booksList.add(newBook);
 
         return newBook;
