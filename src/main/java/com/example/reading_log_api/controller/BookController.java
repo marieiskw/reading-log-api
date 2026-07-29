@@ -1,4 +1,5 @@
 package com.example.reading_log_api.controller;
+import com.example.reading_log_api.dto.CreateBookRequest;
 import com.example.reading_log_api.entity.Book;
 
 import com.example.reading_log_api.service.BookService;
@@ -29,8 +30,8 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public Book createBook(@Valid @RequestBody Book book) {
-        return bookService.createBook(book);
+    public Book createBook(@Valid @RequestBody CreateBookRequest request) {
+        return bookService.createBook(request);
     }
 
 }
