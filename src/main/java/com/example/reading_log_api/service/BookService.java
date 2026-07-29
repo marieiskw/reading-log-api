@@ -2,14 +2,13 @@ package com.example.reading_log_api.service;
 
 import com.example.reading_log_api.entity.Book;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class BookService {
-    private List<Book> booksList = new ArrayList<Book>();
+    private final List<Book> booksList = new ArrayList<>();
 
     public BookService() {
         booksList.add(new Book(1L, "Effective Java", "Joshua Bloch"));
@@ -20,7 +19,7 @@ public class BookService {
         return booksList;
     }
 
-    public Book getBookId(Long id) {
+    public Book getBookById(Long id) {
         for(Book book : getBooks()) {
             if (book.getId().equals(id)) {
                 return book;
@@ -31,10 +30,7 @@ public class BookService {
 
     public Book createBook(Book book) {
         Long nextId = booksList.size() + 1L;
-        Book newBook = new Book();
-        newBook.setId(nextId);
-        newBook.setTitle(book.getTitle());
-        newBook.setAuthor(book.getAuthor());
+        Book newBook = new Book(nextId, book.getTitle(), book.getAuthor());
         booksList.add(newBook);
 
         return newBook;
