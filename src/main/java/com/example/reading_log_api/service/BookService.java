@@ -2,38 +2,30 @@ package com.example.reading_log_api.service;
 
 import com.example.reading_log_api.dto.CreateBookRequest;
 import com.example.reading_log_api.entity.Book;
+import com.example.reading_log_api.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class BookService {
-    private final List<Book> booksList = new ArrayList<>();
+    private final BookRepository bookRepository;
 
-    public BookService() {
-        booksList.add(new Book(1L, "Effective Java", "Joshua Bloch"));
-        booksList.add(new Book(2L, "aaa Code", "Robert C. Martin"));
+    public BookService(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
     public List<Book> getBooks() {
-        return booksList;
+        return bookRepository.findAll();
     }
 
     public Book getBookById(Long id) {
-        for(Book book : booksList) {
-            if (book.getId().equals(id)) {
-                return book;
-            }
-        }
-        return null;
+        return bookRepository.findById(id);
     }
 
     public Book createBook(CreateBookRequest request) {
-        Long nextId = booksList.size() + 1L;
+        Long nextId = getBooks().size() + 1L;
         Book newBook = new Book(nextId, request.getTitle(), request.getAuthor());
-        booksList.add(newBook);
-
-        return newBook;
+        return bookRepository.save(newBook);
     }
 }
