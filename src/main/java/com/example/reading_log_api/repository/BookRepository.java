@@ -29,6 +29,15 @@ public class BookRepository {
         return null;
     }
 
+    public boolean existsByTitleAndAuthor(String title, String author) {
+        for(Book book: booksList) {
+            if((book.getTitle().equals(title) && (book.getAuthor().equals(author)))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Book save(Book book) {
         booksList.add(book);
         return book;

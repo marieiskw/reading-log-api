@@ -13,4 +13,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleBookNotFound(BookNotFoundException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(e.getMessage()));
     }
+
+    @ExceptionHandler(DuplicateBookException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateBook(DuplicateBookException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(e.getMessage()));
+    }
 }
