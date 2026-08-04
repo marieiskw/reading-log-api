@@ -3,6 +3,7 @@ package com.example.reading_log_api.service;
 import com.example.reading_log_api.dto.CreateBookRequest;
 import com.example.reading_log_api.entity.Book;
 import com.example.reading_log_api.repository.BookRepository;
+import com.example.reading_log_api.exception.BookNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +21,11 @@ public class BookService {
     }
 
     public Book getBookById(Long id) {
-        return bookRepository.findById(id);
+        Book book = bookRepository.findById(id);
+        if(book == null) {
+            throw new BookNotFoundException(id);
+        }
+        return book;
     }
 
     public Book createBook(CreateBookRequest request) {
