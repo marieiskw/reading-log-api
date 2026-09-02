@@ -2,6 +2,7 @@ package com.example.reading_log_api.service;
 
 import com.example.reading_log_api.dto.CreateBookRequest;
 import com.example.reading_log_api.entity.Book;
+import com.example.reading_log_api.exception.DuplicateBookException;
 import com.example.reading_log_api.repository.BookRepository;
 import com.example.reading_log_api.exception.BookNotFoundException;
 import org.springframework.stereotype.Service;
@@ -30,8 +31,15 @@ public class BookService {
     }
 
     public Book createBook(CreateBookRequest request) {
+        String title = request.getTitle();
+        String author = request.getAuthor();
+        if(bookRepository.existsByTitleAndAuthor(title, author)) {
+            throw new DuplicateBookException(title, author);
+        }
+
         Long nextId = getBooks().size() + 1L;
-        Book newBook = new Book(nextId, request.getTitle(), request.getAuthor());
+        Book newBook = new Book(nextId, title, author);
+
         return bookRepository.save(newBook);
     }
 }
