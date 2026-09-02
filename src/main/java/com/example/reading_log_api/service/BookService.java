@@ -21,11 +21,12 @@ public class BookService {
     }
 
     public Book getBookById(Long id) {
-        Book book = bookRepository.findById(id);
-        if(book == null) {
-            throw new BookNotFoundException(id);
-        }
-        return book;
+//        Book book = bookRepository.findById(id);
+//        if(book == null) {
+//            throw new BookNotFoundException(id);
+//        }
+//        return book;
+        return bookRepository.findById(id).orElseThrow(() -> new BookNotFoundException(id));
     }
 
     public Book createBook(CreateBookRequest request) {
